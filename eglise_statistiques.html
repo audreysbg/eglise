@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Église - Statistiques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .stat {
+            margin: 20px 0;
+            padding: 15px;
+            background: #eafaf1;
+            border-radius: 5px;
+            font-size: 1.5rem;
+        }
+        .stat span {
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Statistiques de l'Église</h1>
+
+        <div class="stat">
+            <span id="souls">0</span> âmes gagnées
+        </div>
+
+        <div class="stat">
+            <span id="newcomers">0</span> nouveaux participants
+        </div>
+
+        <div class="stat">
+            Croissance démographique : <span id="growth">0</span>
+        </div>
+
+        <footer>
+            Dernière mise à jour : <span id="lastUpdated">--/--/----</span>
+        </footer>
+    </div>
+
+    <script>
+        // Simulated data (replace this with a real API or database fetch)
+        function fetchStats() {
+            return {
+                souls: Math.floor(Math.random() * 1000), // Random number for demonstration
+                newcomers: Math.floor(Math.random() * 500),
+                growth: Math.floor(Math.random() * 200),
+                lastUpdated: new Date().toLocaleString(),
+            };
+        }
+
+        // Function to update the UI
+        function updateStats() {
+            const stats = fetchStats();
+
+            document.getElementById('souls').innerText = stats.souls;
+            document.getElementById('newcomers').innerText = stats.newcomers;
+            document.getElementById('growth').innerText = stats.growth;
+            document.getElementById('lastUpdated').innerText = stats.lastUpdated;
+        }
+
+        // Auto-update every Sunday night at midnight (example simulation)
+        function scheduleUpdate() {
+            const now = new Date();
+            const nextSunday = new Date();
+            nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+            nextSunday.setHours(23, 59, 59, 999);
+
+            const timeUntilNextSunday = nextSunday - now;
+            setTimeout(() => {
+                updateStats();
+                setInterval(updateStats, 7 * 24 * 60 * 60 * 1000); // Weekly updates
+            }, timeUntilNextSunday);
+        }
+
+        // Initial load
+        updateStats();
+        scheduleUpdate();
+    </script>
+</body>
+</html>
